@@ -1,5 +1,9 @@
 # Script de Configuración de Apache y CGI para DevOps
 
+**[English Version](./README.md)**
+
+<hr>
+
 Este repositorio contiene un script Bash (`apache_hello_world.sh`) diseñado para automatizar la configuración inicial de un servidor web Apache en un sistema Ubuntu, incluyendo la habilitación de CGI (Common Gateway Interface) y el despliegue de una página web dinámica "Hola Mundo" que muestra el tiempo de actividad del servidor utilizando un script CGI.
 
 Este script es ideal para el aprovisionamiento rápido de un entorno de desarrollo o pruebas.
