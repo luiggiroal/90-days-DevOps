@@ -4,6 +4,8 @@
 
 <hr>
 
+**![Screenshot](./capture.png)**
+
 This project demonstrates automated provisioning of a development environment using **Vagrant** and **Bash scripting**. It showcases how to use Vagrant to spin up a virtual machine (VM), install essential services, and serve a website using Nginx.
 
 ## 🚀 What It Does
