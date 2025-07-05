@@ -4,6 +4,8 @@
 
 <hr>
 
+**![Screenshot](./capture.png)**
+
 Este proyecto demuestra cómo automatizar la configuración de un entorno de desarrollo utilizando **Vagrant** y scripts en **Bash**. Se muestra cómo levantar una máquina virtual (VM), instalar servicios esenciales y servir un sitio web usando Nginx.
 
 ## 🚀 ¿Qué hace?
