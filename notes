@@ -1,0 +1,139 @@
+* Install node, npm, nginx, docker, kubectl. Verify its installation
+and if service is working properly.
+
+* Install 'gh'. It's the Github CLI; very useful to make
+PR from the CLI.
+Pay attention to install the official 'gh' from Github and 
+NOT the older version 'gitsome':
+
+  type -p curl >/dev/null || sudo apt install curl -y
+  curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | \
+      sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+  sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
+
+  echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] \
+  https://cli.github.com/packages stable main" | \
+      sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+
+  sudo apt update
+  sudo apt install gh
+
+* Update Git to the newer versions:
+
+  sudo add-apt-repository ppa:git-core/ppa -y
+  sudo apt update
+  sudo apt install git -y
+  git --version
+
+* Add aliases to '.bashrc':
+
+  alias ..='cd ..'
+  alias egrep='egrep --color=auto'
+  alias fgrep='fgrep --color=auto'
+  alias gA='git add -A'
+  alias ga='git add'
+  alias gb='git branch'
+  alias gbD='git branch -D'
+  alias gbd='git branch -d'
+  alias gbl='git blame'
+  alias gcgl='git config --global -l'
+  alias gcl='git clone'
+  alias gct='git commit'
+  alias gctam='git commit --amend -m'
+  alias gctm='git commit -m'
+  alias ghrc='gh repo create --public'
+  alias ginit='git init'
+  alias gl='git log'
+  alias glo='git log --oneline'
+  alias glog='git log --oneline --graph --all'
+  alias gm='git merge'
+  alias gplo='git pull origin'
+  alias gpso='git push origin'
+  alias gpsod='git push origin --delete'
+  alias grb='git rebase'
+  alias grbi='git rebase -i'
+  alias grep='grep --color=auto'
+  alias grsh='git reset --hard'
+  alias grsm='git reset --mixed'
+  alias grss='git reset --soft'
+  alias grv='git remote -v'
+  alias gs='git status'
+  alias gslog='git shortlog'
+  alias gsta='git stash apply'
+  alias gstcl='git stash clear'
+  alias gstd='git stash drop'
+  alias gstl='git stash list'
+  alias gstp='git stash push'
+  alias gstpm='git stash push -m'
+  alias gstpp='git stash pop'
+  alias gstpu='git stash push -u'
+  alias gstpum='git stash push -u -m'
+  alias gsw='git switch'
+  alias gswc='git switch -c'
+  alias gswd='git switch --detach'
+  alias l='ls -CF'
+  alias la='ls -A'
+  alias ll='ls -alF'
+  alias lr='ls -rtla'
+  alias ls='ls --color=auto'
+
+* Generate ssh keys for Github using ssh-agent (Add commands
+  to .bashrc):
+
+  ssh-keygen -t ed25519 -C "your_email@example.com"
+
+  You’ll be prompted:
+    Enter file in which to save the key (/home/youruser/.ssh/id_ed25519):
+
+  Just press Enter to accept the default (recommended), or provide a custom path.
+
+  Then it will ask for a passphrase (optional but recommended).
+
+* Start ssh-agent and add the generated ssh keys.
+  Add this to '.bashrc' in order to carry out such task everytime
+  you login into the machine. The purpose of this process is to
+  remove the need to ask for the passphrase everytime a 'push'
+  or 'pull' is made in git
+
+  # Start ssh-agent and save environment if not already running
+  SSH_ENV="$HOME/.ssh/ssh-agent.env"
+
+  start_agent() {
+      echo "Starting ssh-agent..."
+      eval "$(ssh-agent -s)" > "$SSH_ENV"
+      chmod 600 "$SSH_ENV"
+  }
+
+  # Source the environment variables if they exist
+  if [ -f "$SSH_ENV" ]; then
+      source "$SSH_ENV" > /dev/null
+
+      # Check if the agent is still running
+      if ! kill -0 "$SSH_AGENT_PID" 2>/dev/null; then
+          start_agent
+          source "$SSH_ENV" > /dev/null
+      fi
+  else
+      start_agent
+      source "$SSH_ENV" > /dev/null
+  fi
+
+  # Add SSH key if not already added
+  SSH_KEY="$HOME/.ssh/id_ed25519"
+  if ! ssh-add -l 2>/dev/null | grep -q "$SSH_KEY"; then
+      ssh-add "$SSH_KEY"
+  fi
+
+* Add the generated keys to Github [WITHIN THE VM]: 
+
+  Copy the public key to your clipboard:
+    cat ~/.ssh/id_ed25519.pub
+
+  Go to GitHub → Settings > SSH and GPG keys
+
+  Click New SSH key
+
+  Add a title (e.g., Laptop Key) and paste your key
+
+  Test the connection:
+    ssh -T git@github.com
