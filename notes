@@ -1,5 +1,5 @@
-* Install node, npm, nginx, docker, kubectl. Verify its installation
-and if service is working properly.
+* Install node, npm, nginx, docker, kubectl, mail (apt install mailutils).
+Verify its installation and if service is working properly.
 
 * Install 'gh'. It's the Github CLI; very useful to make
 PR from the CLI.
