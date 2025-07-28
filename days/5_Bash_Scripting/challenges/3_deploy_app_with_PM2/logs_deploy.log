@@ -1,0 +1,177 @@
+
+[7;35mDeployment on 28/07/2025 at 07:58:18[0m
+[1;33m
+=== Starting the App deployment with PM2 ===[0m
+[1;33m
+Updating packages...[0m
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Get:1 https://cli.github.com/packages stable InRelease [3917 B]
+Hit:2 http://security.ubuntu.com/ubuntu focal-security InRelease
+Hit:3 http://archive.ubuntu.com/ubuntu focal InRelease
+Hit:4 http://ppa.launchpad.net/git-core/ppa/ubuntu focal InRelease
+Hit:5 http://archive.ubuntu.com/ubuntu focal-updates InRelease
+Hit:6 http://archive.ubuntu.com/ubuntu focal-backports InRelease
+Fetched 3917 B in 1s (4485 B/s)
+Reading package lists...
+Building dependency tree...
+Reading state information...
+6 packages can be upgraded. Run 'apt list --upgradable' to see them.
+[1;33m
+Installing dependencies...[0m
+[0;32m
+'curl' is already installed![0m
+[0;32m
+'ca-certificates' is already installed![0m
+[0;32m
+'nginx' is already installed![0m
+[0;32m
+'git' is already installed![0m
+[1;33m
+Installing NVM...[0m
+[0;32m
+'nvm' is already installed![0m
+[0;34mMaking 'nvm' available...[0m
+[1;33m
+Installing Node and npm...[0m
+[0;34mInstalling Node v20 and its corresponding version of npm...[0m
+v20.19.4 is already installed.
+Now using node v20.19.4 (npm v10.8.2)
+[0;34mSwitching to Node v20...[0m
+Now using node v20.19.4 (npm v10.8.2)
+[1;33m
+Installing PM2...[0m
+[0;32mPM2 is already installed![0m
+[1;33m
+Activating 'nginx'...[0m
+[0;32m
+The nginx service is already enabled and running![0m
+[0;31m
+'devops-static-web' already exists and is not empty![0m
+Do you want to delete it? [y/n]: [1;33m
+Installing npm dependencies for each subdirectory...[0m
+[0;31m
+Skipping docs/. No package.json found![0m
+[0;34m
+Running 'npm install' in frontend/...[0m
+
+changed 1 package, and audited 51 packages in 2s
+
+7 vulnerabilities (3 low, 4 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues, run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+[0;32mDone with frontend/.[0m
+[0;34m
+Running 'npm install' in merchandise/...[0m
+
+changed 1 package, and audited 51 packages in 581ms
+
+7 vulnerabilities (3 low, 4 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues, run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+[0;32mDone with merchandise/.[0m
+[0;34m
+Running 'npm install' in products/...[0m
+
+changed 1 package, and audited 51 packages in 596ms
+
+7 vulnerabilities (3 low, 4 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues, run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+[0;32mDone with products/.[0m
+[0;34m
+Running 'npm install' in shopping-cart/...[0m
+
+changed 1 package, and audited 51 packages in 578ms
+
+7 vulnerabilities (3 low, 4 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues, run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+[0;32mDone with shopping-cart/.[0m
+[1;33m
+Deploying apps using PM2...[0m
+[0;34m
+Getting all the available apps to be deployed...[0m
+[0;32mGot frontend -> frontend/server.js[0m
+[0;32mGot merchandise -> merchandise/server.js[0m
+[0;32mGot products -> products/server.js[0m
+[0;32mGot shopping-cart -> shopping-cart/server.js[0m
+[0;34mStarting shopping-cart with PM2...[0m
+[0;34mStarting frontend with PM2...[0m
+[0;34mStarting merchandise with PM2...[0m
+[0;34mStarting products with PM2...[0m
+[0;34m
+Listing the running apps handle by PM2...
+[0m
+┌────┬──────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name             │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼──────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 1  │ frontend         │ default     │ 1.0.0   │ fork    │ 21123    │ 2h     │ 0    │ online    │ 0%       │ 49.6mb   │ vagrant  │ disabled │
+│ 2  │ merchandise      │ default     │ 1.0.0   │ fork    │ 21142    │ 2h     │ 0    │ online    │ 0%       │ 47.6mb   │ vagrant  │ disabled │
+│ 3  │ products         │ default     │ 1.0.0   │ fork    │ 21161    │ 2h     │ 0    │ online    │ 0%       │ 47.6mb   │ vagrant  │ disabled │
+│ 0  │ shopping-cart    │ default     │ 1.0.0   │ fork    │ 21101    │ 2h     │ 0    │ online    │ 0%       │ 46.3mb   │ vagrant  │ disabled │
+└────┴──────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+[0;34m
+Saving the current process list...
+[0m
+[PM2] Saving current process list...
+[PM2] Successfully saved in /home/vagrant/.pm2/dump.pm2
+[1;33m
+Configuring Nginx...[0m
+[0;34m
+Setting up Nginx configuration for ecommerce-ms ...[0m
+[0;34m
+Linking ecommerce-ms to Nginx's enabled sites...[0m
+[0;34m
+Checking Nginx configuration...[0m
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+[0;32m
+Nginx configuration is OK![0m
+[0;34m
+Reloading Nginx...[0m
+[1;33m
+Checking services...[0m
+[0;32m
+✓ Nginx is active![0m
+[0;32m
+✓ Port 3000 is in use![0m
+[0;32m
+✓ Port 3001 is in use![0m
+[0;32m
+✓ Port 3002 is in use![0m
+[0;32m
+✓ Port 3003 is in use![0m
+[0;32m
+✓ Ecommerce is responding correctly![0m
+[1;33m
+=== Deployment completed ===[0m
+[1;33m
+Look 'logs_deploy.log' for details.[0m
+[1;33mThe app should be available in: http://10.0.2.15:3000
+[0m

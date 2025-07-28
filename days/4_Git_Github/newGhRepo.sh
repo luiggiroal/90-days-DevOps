@@ -38,11 +38,11 @@ if [[ -z "${REPO_DESC}" ]]; then
   read -r -p "Enter a repository description (optional): " REPO_DESC
 fi
 
-# Create remote GH repo 
-print_message $YELLOW "Creating Github repository..."
-gh repo create --public "${REPO_NAME}" --description "${REPO_DESC}"
+# # Create remote GH repo 
+# print_message $YELLOW "Creating Github repository..."
+# gh repo create --public "${REPO_NAME}" --description "${REPO_DESC}"
 
-# Setting the URL mode
+Setting the URL mode
 URL_MODE=""
 while [[ "${URL_MODE}" != "https" && "${URL_MODE}" != "ssh" ]]; do
   read -r -p "Enter the URL mode (ssh / https): " URL_MODE

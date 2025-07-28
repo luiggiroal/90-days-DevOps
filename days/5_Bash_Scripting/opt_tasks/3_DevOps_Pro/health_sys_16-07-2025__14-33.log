@@ -1,0 +1,10 @@
+[1;33m
+Time			Memory		Disk(root)	CPU[0m
+[1;34m16-07-2025 14:33:50	17%		8%		12%[0m
+./health_system_monitor.sh: line 42: [[: 12%: syntax error: operand expected (error token is "%")
+[1;34m16-07-2025 14:33:52	17%		8%		0%[0m
+./health_system_monitor.sh: line 42: [[: 0%: syntax error: operand expected (error token is "%")
+[1;34m16-07-2025 14:33:53	17%		8%		0%[0m
+./health_system_monitor.sh: line 42: [[: 0%: syntax error: operand expected (error token is "%")
+[1;34m16-07-2025 14:33:54	17%		8%		0%[0m
+./health_system_monitor.sh: line 42: [[: 0%: syntax error: operand expected (error token is "%")

@@ -1,0 +1,30 @@
+[2025-07-27 05:57:06 +0000] [7547] [CRITICAL] WORKER TIMEOUT (pid:7552)
+[2025-07-27 05:57:06 +0000] [7552] [ERROR] Error handling request (no URI read)
+Traceback (most recent call last):
+  File "/home/vagrant/venvs/devops-static-web/lib/python3.8/site-packages/gunicorn/workers/sync.py", line 133, in handle
+    req = next(parser)
+  File "/home/vagrant/venvs/devops-static-web/lib/python3.8/site-packages/gunicorn/http/parser.py", line 41, in __next__
+    self.mesg = self.mesg_class(self.cfg, self.unreader, self.source_addr, self.req_count)
+  File "/home/vagrant/venvs/devops-static-web/lib/python3.8/site-packages/gunicorn/http/message.py", line 259, in __init__
+    super().__init__(cfg, unreader, peer_addr)
+  File "/home/vagrant/venvs/devops-static-web/lib/python3.8/site-packages/gunicorn/http/message.py", line 60, in __init__
+    unused = self.parse(self.unreader)
+  File "/home/vagrant/venvs/devops-static-web/lib/python3.8/site-packages/gunicorn/http/message.py", line 271, in parse
+    self.get_data(unreader, buf, stop=True)
+  File "/home/vagrant/venvs/devops-static-web/lib/python3.8/site-packages/gunicorn/http/message.py", line 262, in get_data
+    data = unreader.read()
+  File "/home/vagrant/venvs/devops-static-web/lib/python3.8/site-packages/gunicorn/http/unreader.py", line 36, in read
+    d = self.chunk()
+  File "/home/vagrant/venvs/devops-static-web/lib/python3.8/site-packages/gunicorn/http/unreader.py", line 63, in chunk
+    return self.sock.recv(self.mxchunk)
+  File "/home/vagrant/venvs/devops-static-web/lib/python3.8/site-packages/gunicorn/workers/base.py", line 204, in handle_abort
+    sys.exit(1)
+SystemExit: 1
+[2025-07-27 05:57:06 +0000] [7552] [INFO] Worker exiting (pid: 7552)
+[2025-07-27 05:57:07 +0000] [13097] [INFO] Booting worker with pid: 13097
+[2025-07-27 06:13:57 +0000] [7547] [INFO] Handling signal: term
+[2025-07-27 06:13:57 +0000] [7550] [INFO] Worker exiting (pid: 7550)
+[2025-07-27 06:13:57 +0000] [7551] [INFO] Worker exiting (pid: 7551)
+[2025-07-27 06:13:57 +0000] [7553] [INFO] Worker exiting (pid: 7553)
+[2025-07-27 06:13:57 +0000] [13097] [INFO] Worker exiting (pid: 13097)
+[2025-07-27 06:13:57 +0000] [7547] [INFO] Shutting down: Master

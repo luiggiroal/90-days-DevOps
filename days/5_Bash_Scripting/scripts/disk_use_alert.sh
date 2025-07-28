@@ -14,7 +14,8 @@ print_message () {
 }
 
 # Variables
-USER=""
+# USER=""
+USER=$1
 ANS=""
 MAX_ROOT_THRESHOLD=5 # Maximum threshold for the percentage of space disk used by ROOT
 MAX_HOME_THRESHOLD=0 # Maximum threshold for the size of HOME in gigabytes

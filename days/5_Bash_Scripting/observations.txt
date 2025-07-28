@@ -1,0 +1,97 @@
+Cron jobs do not display or accept interactive prompts.
+
+So if you're expecting this part of your script to show up or run:
+
+    while [[ -z "${USER}" ]]; do
+      read -r -p "Enter the recipient's username: " USER
+    done
+
+…it will never appear — cron runs in the background, with no terminal and no user input possible.
+
+To make your script work with cron, you must remove the interactive prompt (read -p) and instead pass the username as an argument
+or assign previously a value to USER.
+
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+
+[Using Vagrant] Problem in guest machine:
+
+    File from a synced directory still does NOT have the
+    execute (x) permission, even after 'chmod +x', and can't
+    be executed by Cron
+
+This is because your directory is using a shared mount (drwxrwxrwx)
+likely from Windows or Vagrant, which sometimes ignores chmod due 
+to the way the underlying file system is mounted (e.g., VirtualBox 
+shared folders or SMB/CIFS).
+
+Solution 1 -> Copy/move the file to a non-synced directory, and then
+'chmod +x'.
+
+Solution 2 -> If you must keep it where it is, change the cron line to explicitly 
+run it using bash:
+
+    * * * * * bash path/for/your/script/disk_use_alert.sh >> /tmp/alert.log 2>&1
+
+This bypasses the need for the file to be executable.
+
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+
+It's recommended to move the virtual environment 'venv' outside of
+the Vagrant synced file and activate it from such path.
+
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+
+🔹 Key Concept: source vs. Executing a Script
+  source script.sh runs the script in your current shell:
+
+      All environment changes (like setting variables or loading 
+      nvm) persist after the script finishes.
+
+  ./script.sh runs the script in a subshell:
+
+      Environment changes happen only inside the subshell and do
+      not affect your current shell once the script exits.
+
+🔹 What This Means for You
+  If your script sets up tools like nvm, or modifies environment 
+  variables you want to use later, then:
+
+      You must source the setup script from your current shell
+      (e.g., source env_setup.sh).
+
+      Executing it with ./env_setup.sh won’t persist those changes.
+
+✅ Rule of Thumb
+  Use source when you need to retain environment changes after a 
+  script runs.
+  Use ./script.sh when you want to run isolated logic, like
+  deployments, without affecting your current shell.
+
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+
+Use '$HOME' instead of '~' when working in a bash script.
+
+    BASH_PATH="$HOME/.bashrc"
+
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+
+[In a bash script] Running 'sudo' as root, doesn't know about 
+'nvm'. Don't use it with 'npm'.
+
+    npm install -g pm2 
+
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+
+What goes inside the '()' only happens inside a subshell,
+remaining the current shell in its original directory.
+
+'--no-bin-links' flag prevents npm from creating symlinks.
+Useful when working with Vagrant and synced folders activated.
+
+    (cd "${dir}" && npm install --no-bin-links) 
