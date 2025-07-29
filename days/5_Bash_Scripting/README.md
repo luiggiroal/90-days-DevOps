@@ -1,0 +1,136 @@
+# Day 5: Bash Scripting
+
+**[Versión en Español](./README.es.md)**
+
+<hr>
+
+This directory focuses on Bash scripting fundamentals as part of the 90 Days of DevOps challenge. It contains practical notes, challenges, exercises, and scripts for hands-on learning.
+
+## Structure
+
+- [`observations.txt`](./observations.txt):  
+  Practical notes and solutions for common Bash scripting issues, including:
+  - Handling non-interactive environments (like cron jobs).
+  - Dealing with file permissions in Vagrant and synced folders.
+  - The difference between `source script.sh` and executing `./script.sh`.
+  - Why to use `$HOME` instead of `~` in scripts.
+  - Subshell behavior in Bash.
+  - Using npm and node with Vagrant and handling symlink issues.
+  - General Bash best practices and troubleshooting tips.
+
+- **[`challenges/`](./challenges):**  
+  **This directory contains hands-on Bash scripting and DevOps challenges:**
+
+  ### 1. `1_management_users`
+
+**Objective:**  
+ Write Bash scripts to automate common user and group management tasks in Linux.  
+ **Tasks may include:**
+
+- Creating and deleting users and groups
+- Assigning users to groups
+- Setting user passwords and default shells
+- Enforcing password policies
+- Listing users, groups, and their memberships
+
+**Goal:**  
+ Familiarize yourself with system administration commands, script automation, and permission management.
+
+## **![Screenshot](./img/managment_user.PNG)**
+
+### 2. `2_deploy_Book_Library`
+
+**Objective:**  
+ Automate the deployment of a "Book Library" web application using Bash.  
+ **Tasks may include:**
+
+- Installing necessary dependencies (e.g., Node.js, Python, or required packages)
+- Cloning the application repository from a version control system
+- Setting up environment variables and necessary configuration files
+- Running initial database migrations or seed scripts
+- Starting the application and verifying it is reachable
+
+**Goal:**  
+ Practice automating application deployment, understand service dependencies, and ensure reproducibility of deployment steps.
+
+## **![Screenshot](./img/deploy_booklibrary.PNG)**
+
+---
+
+### 3. `3_deploy_app_with_PM2`
+
+**Objective:**  
+ Deploy a web application using [PM2](https://pm2.keymetrics.io/), a process manager for Node.js applications.  
+ **Tasks may include:**
+
+- Installing PM2 globally on the server
+- Using PM2 to start, stop, and restart the application
+- Configuring PM2 to keep the app running after server restarts (startup scripts)
+- Monitoring logs and application status with PM2 commands
+- Saving and restoring process lists
+
+**Goal:**  
+ Learn to use PM2 for robust Node.js app management in production, and automate the workflow with Bash scripts.
+
+## **![Screenshot](./img/deploy_pm2.PNG)**
+
+---
+
+- [`exercises/`](./exercises):  
+  Practical exercises to practice Bash scripting concepts.
+
+- **[`opt_tasks/`](./opt_tasks):**  
+  **This directory provides optional tasks for further practice and deeper exploration of Bash scripting and DevOps concepts. The tasks are designed to stretch your abilities and expose you to more advanced scenarios.**
+
+  ### Example Tasks
+  - **Automated Log Rotation:**  
+    Write a script that automatically rotates, compresses, and archives log files older than a specified number of days.
+  - **System Resource Monitoring:**  
+    Create a Bash script that monitors CPU, memory, and disk usage, sending alerts if thresholds are exceeded.
+  - **Scheduled Backups with Verification:**  
+    Develop a backup script that not only archives files or directories on a schedule but also verifies the integrity of the backup.
+  - **Integration with External Tools:**  
+    Write a script that interacts with external APIs or command-line tools (e.g., sending notifications to Slack or Discord when a job completes).
+
+  - **Performance Benchmarking:**  
+    Script automated benchmarking of a service or application, collecting and reporting results.
+
+  **Goal:**  
+  Use these tasks to push your scripting to the next level, build a portfolio of useful utilities, and prepare for complex real-world automation and monitoring requirements.
+
+- **[`scripts/`](./scripts):**  
+  **A collection of example Bash scripts demonstrating various techniques, solutions, and best practices. Each script is well-commented and intended as a reference or template for your own automation.**
+
+  ### Script Descriptions
+  - **`disk_use_alert.sh`**  
+    Monitors disk usage on specified filesystems and sends an alert if usage exceeds a defined threshold.  
+    _Use Case:_ Proactive server health monitoring to prevent outages due to full disks.
+
+  - **`health_system_monitor.sh`**  
+    Performs comprehensive health checks on system resources (CPU, memory, disk) and writes results to `health_system.log`.  
+    _Use Case:_ Continuous system monitoring and health trend analysis.
+
+  - **`health_system.log`**  
+    Log file generated by `health_system_monitor.sh` containing timestamped records of system health checks.  
+    _Use Case:_ Historical record for troubleshooting and capacity planning.
+
+  - **`verify_reboot_service.sh`**  
+    Checks whether a specific service has restarted successfully after a system reboot.  
+    _Use Case:_ Ensures critical services are up and running after server restarts for production reliability.
+
+  **Goal:**  
+  Explore these scripts to understand practical Bash patterns, then adapt or extend them to suit your own DevOps workflows.
+
+## Getting Started
+
+1. Begin by reading through `observations.txt` for helpful Bash scripting tips and common pitfalls.
+2. Tackle the exercises and challenges to apply your knowledge.
+3. Explore the optional tasks for advanced practice.
+4. Review and run the example scripts in the `scripts/` directory.
+
+## Tips
+
+- Always use `$HOME` instead of `~` in scripts for portability.
+- Understand when to use `source` versus executing a script in Bash.
+- For cron jobs, avoid interactive prompts and ensure scripts are executable.
+- Be mindful of file permissions, especially on synced or shared folders.
