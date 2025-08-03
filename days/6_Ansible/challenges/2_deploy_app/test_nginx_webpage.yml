@@ -1,0 +1,31 @@
+- name: Test Nginx and HTTP client
+  hosts: all
+  become: yes
+
+  tasks:
+    # Using 'systemd' is more reliable and lightweight than 'service_facts'
+    - name: Check nginx status
+      ansible.builtin.systemd:
+        name: nginx
+      register: nginx_status
+      no_log: true # Hiding the output of this task
+
+    - name: Assert nginx is enabled and active
+      assert:
+        that:
+          - nginx_status.status.ActiveState == "active"
+          - nginx_status.status.UnitFileState == "enabled"
+        fail_msg: "Nginx is not enabled or inactive"
+        success_msg: "Nginx is enabled and active"
+
+    - name: Check HTTP response from localhost
+      uri:
+        url: http://localhost
+        return_content: yes
+      register: response
+      no_log: true # Hiding the output of this task
+
+    - name: Show HTTP response
+      debug:
+        msg: "{{ response.content.splitlines()[:10] }}" # Show only first 10 lines
+        # var: response.content # Show the complete content

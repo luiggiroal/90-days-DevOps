@@ -1,0 +1,89 @@
+In a Vagrantfile, the 'ansible_local' provisioner tells Vagrant 
+to run Ansible inside the guest VM instead of on your host 
+machine.
+
+✅ Syntax Example
+ruby
+Copy code
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/bionic64"
+
+  config.vm.provision "ansible_local" do |ansible|
+    ansible.playbook = "playbook.yml"
+  end
+end
+
+🔍 What It Does
+Installs Ansible inside the VM if it’s not already present
+
+Copies your playbook.yml into the guest
+
+Runs the playbook using ansible-playbook from inside the guest
+
+📦 Use Case
+Use ansible_local when:
+
+Your host OS cannot run Ansible (e.g., Windows)
+You want all provisioning to be self-contained inside the VM
+
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+
+In Vagrantfile avoid use '_' when the VM's hostname is being defined:
+  config.vm.hostname = "ansible-server"
+
+
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+
+ansible.inventory_path = "inventories/vagrant/hosts.ini"
+
+is used in a Vagrantfile when using the ansible provisioner, 
+and it tells Vagrant where to find the Ansible inventory file
+on the host machine.
+
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+
+ansible.limit = "web"
+
+This line in a Vagrantfile using the ansible provisioner tells
+Vagrant:
+
+"When running the Ansible playbook, limit it only to the host(s)
+in the inventory group or hostname called web."
+
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+
+roles/
+├── devops/
+│   ├── tasks/
+│   │   └── main.yml
+│   └── vars/
+│       └── main.yml
+├── firewall/
+│   ├── tasks/
+│   │   └── main.yml
+│   └── vars/
+│       └── main.yml
+└── nginx/
+    ├── tasks/
+    │   └── main.yml
+    ├── templates/
+    │   ├── index.html.j2
+    │   └── nginx.conf
+    └── vars/
+        └── main.yml
+
+✅ What Each Role Typically Does
+devops ->	General system or DevOps-specific configuration
+firewall ->	Manages firewall rules (e.g., UFW, iptables)
+nginx ->Installs/configures Nginx, deploys templates like index.html, etc.
+
+📁 Standard Role Structure
+Each role follows this recommended Ansible layout:
+
+tasks/main.yml: main tasks to run for this role
+vars/main.yml: default variables for this role
+templates/: Jinja2 templates rendered with variables and deployed (e.g., index.html.j2, nginx.conf)

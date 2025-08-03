@@ -1,0 +1,41 @@
+==> default: Running provisioner: ansible_local...
+    default: Running ansible-playbook...
+cd /vagrant && PYTHONUNBUFFERED=1 ANSIBLE_NOCOLOR=true ansible-playbook --limit="default" --inventory-file=/tmp/vagrant-ansible/inventory -v test_nginx_webpage.yml
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Test Nginx and HTTP client] **********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [default]
+
+TASK [Check nginx status] ******************************************************
+ok: [default] => {"censored": "the output has been hidden due to the fact that 'no_log: true' was specified for this result", "changed": false}
+
+TASK [Assert nginx is enabled and active] **************************************
+ok: [default] => {
+    "changed": false,
+    "msg": "Nginx is enabled and active"
+}
+
+TASK [Check HTTP response from localhost] **************************************
+ok: [default] => {"censored": "the output has been hidden due to the fact that 'no_log: true' was specified for this result", "changed": false}
+
+TASK [Show HTTP response] ******************************************************
+ok: [default] => {
+    "msg": [
+        "<!DOCTYPE html>",
+        "<html lang=\"en\">",
+        "    <head>",
+        "        <meta charset=\"utf-8\" />",
+        "        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\" />",
+        "        <meta name=\"description\" content=\"\" />",
+        "        <meta name=\"author\" content=\"\" />",
+        "        <title>Freelancer - Start Bootstrap Theme</title>",
+        "        <!-- Favicon-->",
+        "        <link rel=\"icon\" type=\"image/x-icon\" href=\"assets/favicon.ico\" />"
+    ]
+}
+
+PLAY RECAP *********************************************************************
+default                    : ok=5    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+

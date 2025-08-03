@@ -1,0 +1,24 @@
+- name: Basic Server Configuration
+  hosts: webservers
+  become: yes
+
+  tasks:
+    - name: Install packages
+      apt:
+        name: ["git", "tree", "htop"]
+        state: present
+        update_cache: yes
+
+    - name: Create user deploy
+      user:
+        name: deploy
+        groups: sudo
+        append: yes
+        password: "{{ 'admin1' | password_hash('sha512') }}"
+
+    - name: Enable firewall
+      ufw:
+        rule: allow
+        port: "{{ item }}"
+        proto: tcp
+      loop: [22, 80, 443]

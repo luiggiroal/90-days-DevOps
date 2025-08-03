@@ -1,0 +1,13 @@
+- name: Create user devops
+  user:
+    name: "{{ user_name }}"
+    shell: /bin/bash
+    password: "{{ user_password }}"
+    groups: sudo
+    append: yes
+    create_home: yes
+
+- name: Add SSH key to user devops
+  authorized_key:
+    user: "{{ user_name }}"
+    key: "{{ lookup('file', '/home/vagrant/.ssh/authorized_keys') }}"

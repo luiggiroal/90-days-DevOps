@@ -1,0 +1,8 @@
+- name: Deployment of Web Server with Ansible
+  hosts: web
+  become: yes
+
+  roles:
+    - nginx
+    - devops
+    - firewall

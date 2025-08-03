@@ -1,0 +1,2 @@
+user_name: devops
+user_password: "{{ 'admin1' | password_hash('sha512') }}"

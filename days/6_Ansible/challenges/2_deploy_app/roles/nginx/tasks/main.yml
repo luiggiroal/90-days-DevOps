@@ -1,0 +1,66 @@
+- name: Install dependencies
+  apt:
+    # name: ["nginx", "unzip", "wget"]
+    name: nginx
+    state: present
+    update_cache: yes
+
+- name: Create web directory
+  file:
+    path: "{{ web_root }}"
+    state: directory
+    mode: "0755"
+
+# - name: Download template
+#   get_url:
+#     url: "{{ repo_url }}"
+#     dest: /tmp/template.zip
+#     mode: "0644"
+#
+# - name: Unzip template
+#   unarchive:
+#     src: /tmp/template.zip
+#     dest: /tmp/
+#     remote_src: yes
+#
+# - name: Move content to web_root
+#   shell: |
+#     cp -r /tmp/startbootstrap-freelancer-gh-pages/* {{ web_root }}/
+#     chown -R www-data:www-data {{ web_root }}
+
+- name: Personalize landing page
+  template:
+    src: index.html.j2
+    dest: "{{ web_root }}/index.html"
+    owner: www-data
+    group: www-data
+    mode: "0644"
+
+# - name: Clean temp files
+#   file:
+#     path: "{{ item }}"
+#     state: absent
+#   loop:
+#     - "/tmp/freelancer.zip"
+#     - "/tmp/startbootstrap-freelancer-gh-pages"
+
+- name: Configure Nginx
+  template:
+    src: nginx.conf
+    dest: /etc/nginx/sites-available/freelancer
+
+- name: Enable site
+  file:
+    src: /etc/nginx/sites-available/freelancer
+    dest: /etc/nginx/sites-enabled/freelancer
+    state: link
+
+- name: Delete default site
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+
+- name: Restart Nginx
+  service:
+    name: nginx
+    state: restarted

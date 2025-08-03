@@ -1,0 +1,80 @@
+- name: Fullstack Freelance Deployment
+  hosts: localhost
+  become: yes
+
+  # vars:
+  #   repo_url: "https://github.com/startbootstrap/startbootstrap-freelancer/archive/gh-pages.zip"
+  #   web_root: "/var/www/freelancer"
+
+  vars_files:
+    - vars/vars.yml
+
+  tasks:
+    - name: Install dependencies
+      apt:
+        name: ["nginx", "unzip", "wget"]
+        state: present
+        update_cache: yes
+
+    - name: Create web directory
+      file:
+        path: "{{ web_root }}"
+        state: directory
+        mode: "0755"
+
+    - name: Download template
+      get_url:
+        url: "{{ repo_url }}"
+        dest: "/tmp/freelancer.zip"
+        mode: "0644"
+
+    - name: Unzip template
+      unarchive:
+        src: "/tmp/freelancer.zip"
+        dest: "/tmp/"
+        remote_src: yes
+
+    - name: Move content to subdirectory
+      shell: |
+        cd /tmp/startbootstrap-freelancer-gh-pages
+        cp -r * {{ web_root }}/
+        chown -R www-data:www-data {{ web_root }}
+
+    - name: Personalize index.html
+      template:
+        src: templates/index.html.j2
+        dest: "{{ web_root }}/index.html"
+        owner: www-data
+        group: www-data
+        mode: "0644"
+
+    - name: Clean temp files
+      file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - "/tmp/freelancer.zip"
+        - "/tmp/startbootstrap-freelancer-gh-pages"
+
+    - name: Configure Nginx
+      template:
+        src: files/nginx.conf
+        dest: /etc/nginx/sites-available/freelancer
+      notify: Restart Nginx
+
+    - name: Enable site
+      file:
+        src: /etc/nginx/sites-available/freelancer
+        dest: /etc/nginx/sites-enabled/freelancer
+        state: link
+
+    - name: Delete default site
+      file:
+        path: /etc/nginx/sites-enabled/default
+        state: absent
+
+  handlers:
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted

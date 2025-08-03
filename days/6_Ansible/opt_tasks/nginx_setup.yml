@@ -1,0 +1,70 @@
+- name: Webserver Configuration
+  hosts: webservers
+  become: yes
+
+  vars:
+    user_name: deploy
+    user_password: "{{ 'admin1' | password_hash('sha512') }}"
+    custom_index: |
+      <html>
+      <head><title>Nginx Server Set by Ansible</title></head>
+      <body>
+        <h1>It works! This is customized web page.</h1>
+      </body>
+      </html>
+  tasks:
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+        update_cache: yes
+
+    - name: Enable and activate Nginx
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Upload customized page
+      copy:
+        content: "{{ custom_index }}"
+        dest: /var/www/html/index.nginx-debian.html
+        owner: www-data
+        group: www-data
+        mode: "0644"
+
+    - name: Create user with SSH access
+      user:
+        name: "{{ user_name }}"
+        groups: sudo
+        append: yes
+        shell: /bin/bash
+        password: "{{ user_password }}"
+
+    - name: Create .ssh directory for the user
+      file:
+        path: "/home/{{ user_name }}/.ssh"
+        state: directory
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+        mode: "0700"
+
+    - name: Copy public key to the user
+      copy:
+        src: /home/vagrant/.ssh/authorized_keys
+        dest: "/home/{{ user_name }}/.ssh/authorized_keys"
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+        mode: "0600"
+
+    - name: Allow SSH, HTTP and HTTPS traffic
+      ufw:
+        rule: allow
+        port: "{{ item }}"
+        proto: tcp
+      loop: [20, 80, 443]
+
+    - name: Activate firewall
+      ufw:
+        state: enabled
+        policy: deny

@@ -127,3 +127,58 @@ Checking services...[0m
 Look 'logs_deploy.log' for details.[0m
 [1;33mThe app should be available in: http://10.0.2.15
 [0m
+[2025-07-29 04:03:31 +0000] [18345] [CRITICAL] WORKER TIMEOUT (pid:18348)
+[2025-07-29 04:03:31 +0000] [18348] [ERROR] Error handling request (no URI read)
+Traceback (most recent call last):
+  File "/home/vagrant/venvs/devops-static-web/lib/python3.8/site-packages/gunicorn/workers/sync.py", line 133, in handle
+    req = next(parser)
+  File "/home/vagrant/venvs/devops-static-web/lib/python3.8/site-packages/gunicorn/http/parser.py", line 41, in __next__
+    self.mesg = self.mesg_class(self.cfg, self.unreader, self.source_addr, self.req_count)
+  File "/home/vagrant/venvs/devops-static-web/lib/python3.8/site-packages/gunicorn/http/message.py", line 259, in __init__
+    super().__init__(cfg, unreader, peer_addr)
+  File "/home/vagrant/venvs/devops-static-web/lib/python3.8/site-packages/gunicorn/http/message.py", line 60, in __init__
+    unused = self.parse(self.unreader)
+  File "/home/vagrant/venvs/devops-static-web/lib/python3.8/site-packages/gunicorn/http/message.py", line 271, in parse
+    self.get_data(unreader, buf, stop=True)
+  File "/home/vagrant/venvs/devops-static-web/lib/python3.8/site-packages/gunicorn/http/message.py", line 262, in get_data
+    data = unreader.read()
+  File "/home/vagrant/venvs/devops-static-web/lib/python3.8/site-packages/gunicorn/http/unreader.py", line 36, in read
+    d = self.chunk()
+  File "/home/vagrant/venvs/devops-static-web/lib/python3.8/site-packages/gunicorn/http/unreader.py", line 63, in chunk
+    return self.sock.recv(self.mxchunk)
+  File "/home/vagrant/venvs/devops-static-web/lib/python3.8/site-packages/gunicorn/workers/base.py", line 204, in handle_abort
+    sys.exit(1)
+SystemExit: 1
+[2025-07-29 04:03:31 +0000] [18348] [INFO] Worker exiting (pid: 18348)
+[2025-07-29 04:03:31 +0000] [22374] [INFO] Booting worker with pid: 22374
+[2025-07-29 08:30:48 +0000] [18345] [CRITICAL] WORKER TIMEOUT (pid:18349)
+[2025-07-29 08:30:48 +0000] [18345] [CRITICAL] WORKER TIMEOUT (pid:18350)
+[2025-07-29 08:30:48 +0000] [18345] [CRITICAL] WORKER TIMEOUT (pid:18351)
+[2025-07-29 08:30:48 +0000] [18345] [CRITICAL] WORKER TIMEOUT (pid:22374)
+[2025-07-29 08:30:49 +0000] [22374] [INFO] Worker exiting (pid: 22374)
+[2025-07-29 08:30:49 +0000] [18350] [INFO] Worker exiting (pid: 18350)
+[2025-07-29 08:30:48 +0000] [18349] [INFO] Worker exiting (pid: 18349)
+[2025-07-29 08:30:49 +0000] [18345] [ERROR] Worker (pid:18350) was sent SIGKILL! Perhaps out of memory?
+[2025-07-29 08:30:50 +0000] [18345] [ERROR] Worker (pid:18351) was sent SIGKILL! Perhaps out of memory?
+[2025-07-29 08:30:50 +0000] [18345] [ERROR] Worker (pid:22374) was sent SIGKILL! Perhaps out of memory?
+[2025-07-29 08:30:50 +0000] [34742] [INFO] Booting worker with pid: 34742
+[2025-07-29 08:30:50 +0000] [18345] [ERROR] Worker (pid:18349) was sent SIGKILL! Perhaps out of memory?
+[2025-07-29 08:30:50 +0000] [34743] [INFO] Booting worker with pid: 34743
+[2025-07-29 08:30:50 +0000] [34747] [INFO] Booting worker with pid: 34747
+[2025-07-29 08:30:50 +0000] [34750] [INFO] Booting worker with pid: 34750
+[2025-07-29 19:58:48 +0000] [18345] [CRITICAL] WORKER TIMEOUT (pid:34742)
+[2025-07-29 19:58:48 +0000] [18345] [CRITICAL] WORKER TIMEOUT (pid:34743)
+[2025-07-29 19:58:48 +0000] [18345] [CRITICAL] WORKER TIMEOUT (pid:34747)
+[2025-07-29 19:58:48 +0000] [18345] [CRITICAL] WORKER TIMEOUT (pid:34750)
+[2025-07-29 19:58:48 +0000] [34743] [INFO] Worker exiting (pid: 34743)
+[2025-07-29 19:58:48 +0000] [34750] [INFO] Worker exiting (pid: 34750)
+[2025-07-29 19:58:48 +0000] [34742] [INFO] Worker exiting (pid: 34742)
+[2025-07-29 19:58:48 +0000] [34747] [INFO] Worker exiting (pid: 34747)
+[2025-07-29 19:58:49 +0000] [18345] [ERROR] Worker (pid:34742) was sent SIGKILL! Perhaps out of memory?
+[2025-07-29 19:58:49 +0000] [36827] [INFO] Booting worker with pid: 36827
+[2025-07-29 19:58:49 +0000] [18345] [ERROR] Worker (pid:34747) was sent SIGKILL! Perhaps out of memory?
+[2025-07-29 19:58:49 +0000] [18345] [ERROR] Worker (pid:34750) was sent SIGKILL! Perhaps out of memory?
+[2025-07-29 19:58:49 +0000] [18345] [ERROR] Worker (pid:34743) was sent SIGKILL! Perhaps out of memory?
+[2025-07-29 19:58:49 +0000] [36828] [INFO] Booting worker with pid: 36828
+[2025-07-29 19:58:49 +0000] [36829] [INFO] Booting worker with pid: 36829
+[2025-07-29 19:58:50 +0000] [36835] [INFO] Booting worker with pid: 36835

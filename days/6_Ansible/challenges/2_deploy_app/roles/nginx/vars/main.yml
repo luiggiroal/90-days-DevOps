@@ -1,0 +1,5 @@
+# repo_url: "https://github.com/startbootstrap/startbootstrap-freelancer/archive/gh-pages.zip"
+web_root: "/var/www/freelancer"
+site_title: My Portfolio
+deployment_year: "{{ ansible_date_time.date }}"
+my_name: Luiggi Rodríguez Aliaga
